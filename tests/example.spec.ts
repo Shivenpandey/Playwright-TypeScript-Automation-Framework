@@ -1,32 +1,33 @@
 
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test('Verify Automation Exercise page title', async ({ page }) => {
 
-  // Verify page title
-  await expect(page).toHaveTitle(/Playwright/);
+  await page.goto('https://automationexercise.com/');
+
+  await expect(page).toHaveTitle(/Automation Exercise/i);
+
 });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test('Verify Automation Exercise homepage URL', async ({ page }) => {
 
-  // Click the get started link
-  await page.getByRole('link', { name: 'Get started' }).click();
+  await page.goto('https://automationexercise.com/');
 
-  // Verify Installation heading
+  await expect(page).toHaveURL(/automationexercise\.com/);
+
+});
+
+
+test('Verify homepage description is visible', async ({ page }) => {
+
+  await page.goto('https://automationexercise.com/');
+
   await expect(
-    page.getByRole('heading', { name: 'Installation' })
+    page.getByRole('heading', {
+      name: 'Full-Fledged practice website for Automation Engineers',
+      exact: true
+    }).first()
   ).toBeVisible();
+
 });
 
-
-test('verify Playwright documentation heading', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-
-  const headings = await page.getByRole('heading').allTextContents();
-
-  console.log('Available headings:', headings);
-
-  await expect(page.getByRole('heading').first()).toBeVisible();
-});
